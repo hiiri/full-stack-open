@@ -1,68 +1,73 @@
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
-const Header = (props) => {
+const Header = ({ text }) => {
 	return (
-		<>
-			<h1>{props.course.name}</h1>
-		</>
+		<h1>
+			{text}
+		</h1>
 	)
 }
 
-const Part = (props) => {
+const Button = ({ text, onClick }) => {
 	return (
-		<p>
-			{props.name} {props.count}
-		</p>
+		<button onClick={onClick}>
+			{text}
+		</button>
 	)
 }
 
-const Content = (props) => {
+const Stats = ({ good, neutral, bad }) => {
+	const all = good + neutral + bad
 	return (
 		<div>
-			<Part name={props.parts[0].name} count={props.parts[0].exercises}/>
-			<Part name={props.parts[1].name} count={props.parts[1].exercises}/>
-			<Part name={props.parts[2].name} count={props.parts[2].exercises}/>
+			good {good}
+			<br />
+			neutral {neutral}
+			<br />
+			bad {bad}
+			<br />
+			all {all}
+			<br />
+			average {(good - bad) / all}
+			<br />
+			positive {(good / (all)) * 100} %
+			<br />
 		</div>
 	)
 }
 
-const Total = (props) => {
-	return (
-		<p>	Number of exercices {
-			props.parts[0].exercises +
-			props.parts[1].exercises +
-			props.parts[2].exercises
-			}
-		</p>
-	)
-}
-
 const App = () => {
-	const course = {
-	name: 'Half Stack application development',
-	parts: [
-		{
-			name: 'Fundamentals of React',
-			exercises: 10
-		},
-		{
-			name: 'Using props to pass data',
-			exercises: 7
-		},
-		{
-			name: 'State of a component',
-			exercises: 14
-		}
-	]
-}
+	// save clicks of each button to its own state
+	const [good, setGood] = useState(0)
+	const [neutral, setNeutral] = useState(0)
+	const [bad, setBad] = useState(0)
 
-  return (
-    <div>
-      <Header course={course} />
-      <Content parts={course.parts}/>
-      <Total parts={course.parts} />
-    </div>
+	const incrementNeutral = () => {
+		setNeutral(neutral + 1)
+	}
+
+	const incrementBad = () => {
+		setBad(bad + 1)
+	}
+
+	const incrementGood = () => {
+		console.log(good)
+		setGood(good + 1)
+	}
+
+	return (
+		<div>
+			<Header text="give feedback" />
+			<Button text="good" onClick={incrementGood}/>
+			<Button text="neutral" onClick={incrementNeutral}/>
+			<Button text="bad" onClick={incrementBad}/>
+			<Header text="statistics" />
+			<Stats good={good} bad={bad} neutral={neutral} />
+		</div>
   )
 }
 
-ReactDOM.render(<App />, document.getElementById('root'))
+ReactDOM.render(<App />,
+  document.getElementById('root')
+)
