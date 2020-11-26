@@ -2,16 +2,17 @@ import React, { useState } from 'react'
 import CountryDetails from './CountryDetails'
 
 const Countries = ({ countries, filter }) => {
-  const [shownCountries, setShownCountries] = useState([new Array(countries.length).fill(0)])
+  const [shownCountries, setShownCountries] = useState(0)
 
   const filteredCountriesId = (Object.keys(countries).filter(
     countryId => countries[countryId].name.toLowerCase()
     .includes(filter.toLowerCase())
   ))
 
-  const showCountryInfo = (country, id) => {
+  const toggleShowCountryInfo = (country, id) => {
     const newShownCountries = [...shownCountries]
-    newShownCountries[id] = 1
+    console.log(shownCountries, 'test')
+    newShownCountries[id] = 1 - newShownCountries[id]
     setShownCountries(newShownCountries)
   }
 
@@ -37,18 +38,13 @@ const Countries = ({ countries, filter }) => {
       <div>
         {
           filteredCountriesId.map(countryId =>
-            <p key={countryId}>
+            <div key={countryId}>
               {countries[countryId].name}
               <button onClick={() =>
-                showCountryInfo(countries[countryId], parseInt(countryId))}> show
+                toggleShowCountryInfo(countries[countryId], parseInt(countryId))}> show
               </button>
-            </p>
-          ),
-          <p>
-          shownCountries.map(id => {
-            <CountryDetails country={countries[id]}/>
-          }
-          </p>
+              { shownCountries[countryId] ? <CountryDetails country={countries[countryId]} /> : null }
+            </div>
           )
         }
       </div>
