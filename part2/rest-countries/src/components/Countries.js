@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import CountryDetails from './CountryDetails'
 
 const Countries = ({ countries, filter }) => {
-  const [shownCountries, setShownCountries] = useState(0)
+  const [shownCountries, setShownCountries] = useState()
+  useEffect(() => {
+    setShownCountries(new Array(countries.length).fill(0))
+  }, [countries.length])
 
   const filteredCountriesId = (Object.keys(countries).filter(
     countryId => countries[countryId].name.toLowerCase()
@@ -11,7 +14,7 @@ const Countries = ({ countries, filter }) => {
 
   const toggleShowCountryInfo = (country, id) => {
     const newShownCountries = [...shownCountries]
-    console.log(shownCountries, 'test')
+
     newShownCountries[id] = 1 - newShownCountries[id]
     setShownCountries(newShownCountries)
   }
@@ -24,16 +27,6 @@ const Countries = ({ countries, filter }) => {
     )
   }
   else if (filteredCountriesId.length > 1) {
-      console.log(shownCountries)
-      const indices = shownCountries.flatMap((show, countryIdx) => show ? countryIdx : [])
-
-      console.log(indices, 'res')
-      const test = shownCountries.map(country => country)
-      for (let i = 0; i < test.length; i++) {
-        if (test[i] === 1) {
-          console.log(countries[i])
-        }
-      }
     return (
       <div>
         {
