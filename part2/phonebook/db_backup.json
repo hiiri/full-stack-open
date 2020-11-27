@@ -6,6 +6,21 @@
       "id": 1
     },
     {
+      "name": "Test User",
+      "number": "45674345",
+      "id": 2
+    },
+    {
+      "name": "Hello World",
+      "number": "678-4561234",
+      "id": 3
+    },
+    {
+      "name": "Foo Bar",
+      "number": "9876-2345-23",
+      "id": 4
+    },
+    {
       "name": "User Test",
       "number": "9123-234-3",
       "id": 5
@@ -14,16 +29,6 @@
       "name": "Matti Makeinen",
       "number": "467-234-1",
       "id": 6
-    },
-    {
-      "name": "hello user",
-      "number": "194943-234",
-      "id": 7
-    },
-    {
-      "name": "hello user0",
-      "number": "194943-234o",
-      "id": 8
     }
   ]
 }

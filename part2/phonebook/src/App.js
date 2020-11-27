@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import personService from './services/persons'
 
 import axios from 'axios'
 
@@ -28,9 +29,11 @@ const App = () => {
     }
     if (persons.some(e => e.name === newName))
       alert(`${newName} is already added to phonebook`)
-    else
+    else {
       setPersons(persons.concat(personObject))
-    console.log(persons)
+      personService.addPerson(personObject);
+    }
+      console.log(persons)
   }
 
   const handleNameChange = (event) => {
