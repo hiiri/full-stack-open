@@ -2,7 +2,6 @@ import {React, useEffect, useState} from 'react'
 import axios from 'axios'
 
 import Countries from './components/Countries'
-import Weather from './components/Weather'
 
 const App = () => {
 
@@ -28,7 +27,6 @@ const App = () => {
     <div>
       <p>find countries</p><input onChange={onFilterChange} />
       <Countries countries={countries} filter={filter} />
-      <Weather />
     </div>
   )
 }
